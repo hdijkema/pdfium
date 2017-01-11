@@ -1,5 +1,13 @@
 # PDFium
 
+## Special Version
+
+This is a clone of the original PDFium repository of chromium. 
+It has been used to create working PDFium DLLs on windows, which don't depend on V8.
+
+11/1/2017 - Hans
+
+
 ## Prerequisites
 
 Get the chromium depot tools via the instructions at
