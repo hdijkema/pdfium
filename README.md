@@ -5,6 +5,9 @@
 This is a clone of the original PDFium repository of chromium. 
 It has been used to create working PDFium DLLs on windows, which don't depend on V8.
 
+For the compilation Qt5.7 - QtCreator has been used.
+The project file can be found in directory ./pdfiumdll (named: pdfiumdll.pro)
+
 11/1/2017 - Hans
 
 
