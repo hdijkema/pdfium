@@ -83,7 +83,7 @@ static boolean _dest_empty(j_compress_ptr cinfo) {
 #define JPEG_MARKER_ICC (JPEG_APP0 + 2)
 #define JPEG_MARKER_MAXSIZE 0xFFFF
 
-#ifdef PDF_ENABLE_XFA
+#if  defined(PDF_ENABLE_XFA) || defined(HD)
 static void JpegLoadAttribute(struct jpeg_decompress_struct* pInfo,
                               CFX_DIBAttribute* pAttribute) {
   if (!pAttribute)
@@ -424,7 +424,7 @@ void CCodec_JpegModule::Input(FXJPEG_Context* ctx,
   ctx->m_SrcMgr.bytes_in_buffer = src_size;
 }
 
-#ifdef PDF_ENABLE_XFA
+#if defined(PDF_ENABLE_XFA) || defined(HD)
 int CCodec_JpegModule::ReadHeader(FXJPEG_Context* ctx,
                                   int* width,
                                   int* height,
@@ -448,7 +448,7 @@ int CCodec_JpegModule::ReadHeader(FXJPEG_Context* ctx,
   *width = ctx->m_Info.image_width;
   *height = ctx->m_Info.image_height;
   *nComps = ctx->m_Info.num_components;
-#ifdef PDF_ENABLE_XFA
+#if defined(PDF_ENABLE_XFA) | defined(HD)
   JpegLoadAttribute(&ctx->m_Info, pAttribute);
 #endif
   return 0;

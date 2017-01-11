@@ -28,7 +28,7 @@ class CJPX_Decoder;
 class CPDF_ColorSpace;
 class CPDF_StreamAcc;
 
-#ifdef PDF_ENABLE_XFA
+#if defined(PDF_ENABLE_XFA) || defined(HD)
 #include "core/fxcodec/codec/ccodec_bmpmodule.h"
 #include "core/fxcodec/codec/ccodec_gifmodule.h"
 #include "core/fxcodec/codec/ccodec_pngmodule.h"
@@ -69,7 +69,7 @@ class CCodec_ModuleMgr {
   CCodec_IccModule* GetIccModule() const { return m_pIccModule.get(); }
   CCodec_FlateModule* GetFlateModule() const { return m_pFlateModule.get(); }
 
-#ifdef PDF_ENABLE_XFA
+#if defined(PDF_ENABLE_XFA) || defined(HD)
   CCodec_ProgressiveDecoder* CreateProgressiveDecoder();
   CCodec_PngModule* GetPngModule() const { return m_pPngModule.get(); }
   CCodec_GifModule* GetGifModule() const { return m_pGifModule.get(); }
@@ -85,7 +85,7 @@ class CCodec_ModuleMgr {
   std::unique_ptr<CCodec_Jbig2Module> m_pJbig2Module;
   std::unique_ptr<CCodec_IccModule> m_pIccModule;
 
-#ifdef PDF_ENABLE_XFA
+#if defined(PDF_ENABLE_XFA) || defined(HD)
   std::unique_ptr<CCodec_PngModule> m_pPngModule;
   std::unique_ptr<CCodec_GifModule> m_pGifModule;
   std::unique_ptr<CCodec_BmpModule> m_pBmpModule;

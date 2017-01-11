@@ -47,7 +47,7 @@ extern const size_t kFXTextLayoutBidiMirrorSize;
 uint32_t FX_GetUnicodeProperties(FX_WCHAR wch);
 FX_WCHAR FX_GetMirrorChar(FX_WCHAR wch, bool bRTL, bool bVertical);
 
-#ifdef PDF_ENABLE_XFA
+#if defined(PDF_ENABLE_XFA)
 enum FX_CHARBREAKPROP {
   FX_CBP_OP = 0,
   FX_CBP_CL = 1,

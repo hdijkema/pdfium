@@ -129,10 +129,15 @@ typedef const FS_RECTF* FS_LPCRECTF;
 #if defined(_WIN32) && defined(FPDFSDK_EXPORTS)
 // On Windows system, functions are exported in a DLL
 #define DLLEXPORT __declspec(dllexport)
-#define STDCALL __stdcall
+#  define STDCALL __stdcall
 #else
-#define DLLEXPORT
-#define STDCALL
+#  if defined(_WIN32)
+#    define DLLEXPORT __declspec(dllimport)
+#    define STDCALL __stdcall
+#  else
+#    define DLLEXPORT
+#    define STDCALL
+#  endif
 #endif
 
 // Exported Functions

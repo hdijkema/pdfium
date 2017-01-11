@@ -15,7 +15,7 @@ class CCodec_ScanlineDecoder;
 class CFX_DIBSource;
 struct FXJPEG_Context;
 
-#ifdef PDF_ENABLE_XFA
+#if defined(PDF_ENABLE_XFA) || defined(HD)
 class CFX_DIBAttribute;
 #endif  // PDF_ENABLE_XFA
 
@@ -42,17 +42,17 @@ class CCodec_JpegModule {
              const uint8_t* src_buf,
              uint32_t src_size);
 
-#ifndef PDF_ENABLE_XFA
-  int ReadHeader(FXJPEG_Context* pContext,
-                 int* width,
-                 int* height,
-                 int* nComps);
-#else   // PDF_ENABLE_XFA
+#if defined(PDF_ENABLE_XFA) || defined(HD)
   int ReadHeader(FXJPEG_Context* pContext,
                  int* width,
                  int* height,
                  int* nComps,
                  CFX_DIBAttribute* pAttribute);
+#else
+  int ReadHeader(FXJPEG_Context* pContext,
+                 int* width,
+                 int* height,
+                 int* nComps);
 #endif  // PDF_ENABLE_XFA
 
   bool StartScanline(FXJPEG_Context* pContext, int down_scale);

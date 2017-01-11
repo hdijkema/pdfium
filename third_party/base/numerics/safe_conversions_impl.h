@@ -10,6 +10,9 @@
 
 #include "third_party/base/macros.h"
 
+#undef max
+#undef min
+
 namespace pdfium {
 namespace base {
 namespace internal {
