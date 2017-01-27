@@ -9,17 +9,12 @@ QT       -= core gui
 TARGET = pdfiumdll
 TEMPLATE = lib
 
-#win32: QMAKE_CFLAGS += -wd4100
-#win32: QMAKE_CXXFLAGS += -wd4100
-#win32: QMAKE_CFLAGS_WARN_OFF += 4100
-#win32: QMAKE_CXXFLAGS_WARN_OFF += 4100
-QMAKE_CXXFLAGS += /wd4100
-QMAKE_CXXFLAGS_WARN_ON -= -w34100
-
+win32: QMAKE_CXXFLAGS += /wd4100
+win32: QMAKE_CXXFLAGS_WARN_ON -= -w34100
 win32: MYLIBDIR = c:/devel/libraries
 win32: INCLUDEPATH += $$MYLIBDIR/include
 
-INCLUDEPATH += ..
+mac: QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.8
 
 contains(QT_ARCH, i386) { # 32bit
     CONFIG(debug, debug|release) {
@@ -35,6 +30,15 @@ contains(QT_ARCH, i386) { # 32bit
     }
 }
 win32: LIBS += -lfreetype271 -llibjpeg -llibpng -llibtiff -lopenjp2 -lGdi32 -lUser32 -lAdvapi32
+
+mac: MYLIBDIR=/Users/hans/devel/libraries/osx
+mac: INCLUDEPATH += $$MYLIBDIR/include
+mac: INCLUDEPATH += $$MYLIBDIR/include/freetype2
+mac: LIBS += -L$$MYLIBDIR/lib
+mac: LIBS += -lfreetype -ljpeg -lpng -ltiff -lopenjp2 -lz -framework CoreFoundation -framework CoreGraphics
+
+INCLUDEPATH += ..
+
 
 DEFINES += PDFIUMDLL_LIBRARY
 #DEFINES += PDF_ENABLE_XFA
@@ -336,13 +340,6 @@ SOURCES += \
     ../core/fxge/ge/fx_ge_fontmap.cpp \
     ../core/fxge/ge/fx_ge_linux.cpp \
     ../core/fxge/ge/fx_ge_text.cpp \
-    ../core/fxge/win32/cfx_psrenderer.cpp \
-    ../core/fxge/win32/cpsoutput.cpp \
-    ../core/fxge/win32/fx_win32_device.cpp \
-    ../core/fxge/win32/fx_win32_dib.cpp \
-    ../core/fxge/win32/fx_win32_dwrite.cpp \
-    ../core/fxge/win32/fx_win32_gdipext.cpp \
-    ../core/fxge/win32/fx_win32_print.cpp \
     ../third_party/agg23/agg_curves.cpp \
     ../third_party/agg23/agg_path_storage.cpp \
     ../third_party/agg23/agg_rasterizer_scanline_aa.cpp \
@@ -450,6 +447,23 @@ SOURCES += \
     ../core/fxcodec/codec/fx_codec_png.cpp \
     ../core/fxcodec/codec/fx_codec_progress.cpp \
     ../core/fxcodec/codec/fx_codec_tiff.cpp
+
+mac: SOURCES += \
+    ../core/fxge/apple/fx_apple_platform.cpp \
+    ../core/fxge/apple/fx_mac_imp.cpp \
+    ../core/fxge/apple/fx_quartz_device.cpp
+
+
+win32: SOURCES += \
+    ../core/fxge/win32/cfx_psrenderer.cpp \
+    ../core/fxge/win32/cpsoutput.cpp \
+    ../core/fxge/win32/fx_win32_device.cpp \
+    ../core/fxge/win32/fx_win32_dib.cpp \
+    ../core/fxge/win32/fx_win32_dwrite.cpp \
+    ../core/fxge/win32/fx_win32_gdipext.cpp \
+    ../core/fxge/win32/fx_win32_print.cpp
+
+
 
 HEADERS += \
     ../core/fxge/cfx_facecache.h \
@@ -689,11 +703,6 @@ HEADERS += \
     ../core/fxge/ge/cfx_folderfontinfo.h \
     ../core/fxge/ge/cttfontdesc.h \
     ../core/fxge/ge/fx_text_int.h \
-    ../core/fxge/win32/cfx_psrenderer.h \
-    ../core/fxge/win32/cfx_windowsdib.h \
-    ../core/fxge/win32/cpsoutput.h \
-    ../core/fxge/win32/dwrite_int.h \
-    ../core/fxge/win32/win32_int.h \
     ../public/fpdf_dataavail.h \
     ../public/fpdf_doc.h \
     ../public/fpdf_edit.h \
@@ -791,7 +800,18 @@ HEADERS += \
     ../fpdfsdk/pdfwindow/PWL_Utils.h \
     ../fpdfsdk/pdfwindow/PWL_Wnd.h \
     ../fpdfsdk/javascript/ijs_context.h \
-    ../fpdfsdk/javascript/ijs_runtime.h \
+    ../fpdfsdk/javascript/ijs_runtime.h
+
+mac: HEADERS += \
+    ../core/fxge/apple/apple_int.h
+
+win32: HEADERS += \
+    ../core/fxge/win32/cfx_psrenderer.h \
+    ../core/fxge/win32/cfx_windowsdib.h \
+    ../core/fxge/win32/cpsoutput.h \
+    ../core/fxge/win32/dwrite_int.h \
+    ../core/fxge/win32/win32_int.h
+
 
 unix {
     target.path = /usr/lib
