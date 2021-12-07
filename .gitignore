@@ -33,3 +33,4 @@ Makefile
 *.user
 *.vcxproj
 *.xcodeproj
+build*

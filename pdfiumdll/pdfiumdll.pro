@@ -16,23 +16,15 @@ TEMPLATE = lib
 QMAKE_CXXFLAGS += /wd4100
 QMAKE_CXXFLAGS_WARN_ON -= -w34100
 
-win32: MYLIBDIR = c:/devel/libraries
+win32: MYLIBDIR = c:/devel/libraries/win64
 win32: INCLUDEPATH += $$MYLIBDIR/include
 
 INCLUDEPATH += ..
 
-contains(QT_ARCH, i386) { # 32bit
-    CONFIG(debug, debug|release) {
-        win32: LIBS += -L$$MYLIBDIR/32bit/libd
-    } else {
-        win32: LIBS += -L$$MYLIBDIR/32bit/lib
-    }
-} else { #64bit
-    CONFIG(debug, debug|release) {
-        win32: LIBS += -L$$MYLIBDIR/64bit/libd
-    } else {
-        win32: LIBS += -L$$MYLIBDIR/64bit/lib
-    }
+CONFIG(debug, debug|release) {
+    win32: LIBS += -L$$MYLIBDIR/libd
+} else {
+    win32: LIBS += -L$$MYLIBDIR/lib
 }
 win32: LIBS += -lfreetype271 -llibjpeg -llibpng -llibtiff -lopenjp2 -lGdi32 -lUser32 -lAdvapi32
 
