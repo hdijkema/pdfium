@@ -1,8 +1,9 @@
 #-------------------------------------------------
-#
 # Project created by QtCreator 2017-01-10T21:16:43
-#
 #-------------------------------------------------
+# Installeren:
+#
+#
 
 QT       -= core gui
 
@@ -13,13 +14,14 @@ TEMPLATE = lib
 #win32: QMAKE_CXXFLAGS += -wd4100
 #win32: QMAKE_CFLAGS_WARN_OFF += 4100
 #win32: QMAKE_CXXFLAGS_WARN_OFF += 4100
-QMAKE_CXXFLAGS += /wd4100
-QMAKE_CXXFLAGS_WARN_ON -= -w34100
+win32: QMAKE_CXXFLAGS += /wd4100
+win32: QMAKE_CXXFLAGS_WARN_ON -= -w34100
 
 win32: MYLIBDIR = c:/devel/libraries/win64
 win32: INCLUDEPATH += $$MYLIBDIR/include
 
-mac: QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.8
+mac: message(Qt Deployment Target: $$QMAKE_MACOSX_DEPLOYMENT_TARGET)
+mac: QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
 
 CONFIG(debug, debug|release) {
     win32: LIBS += -L$$MYLIBDIR/libd
@@ -28,11 +30,11 @@ CONFIG(debug, debug|release) {
 }
 win32: LIBS += -lfreetype271 -llibjpeg -llibpng -llibtiff -lopenjp2 -lGdi32 -lUser32 -lAdvapi32
 
-mac: MYLIBDIR=/Users/hans/devel/libraries/osx
+mac: MYLIBDIR=/Users/hans/devel/libraries/nosx
 mac: INCLUDEPATH += $$MYLIBDIR/include
 mac: INCLUDEPATH += $$MYLIBDIR/include/freetype2
 mac: LIBS += -L$$MYLIBDIR/lib
-mac: LIBS += -lfreetype -ljpeg -lpng -ltiff -lopenjp2 -lz -framework CoreFoundation -framework CoreGraphics
+mac: LIBS += -lfreetype -ljpeg -lpng -ltiff -lopenjp2 -lz -lbz2 -lbrotlidec -lharfbuzz -framework CoreFoundation -framework CoreGraphics -framework CoreText
 
 INCLUDEPATH += ..
 
